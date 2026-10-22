@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Design tokens: the only colours used on the site */
+@theme {
+  --color-orange: #F94D01;  /* buttons, links, accents, eyebrows, borders, CTA */
+  --color-navy: #1D1F36;    /* stats band, footer */
+  --color-black: #1E1E1E;   /* headings, main text */
+  --color-grey: #707070;    /* secondary text, borders (at 20%) */
+  --color-white: #FFFFFF;   /* backgrounds, text on orange/navy */
+
+  --font-heading: "Noto Sans Devanagari", sans-serif;
+  --font-sans: "Inter", "Noto Sans Devanagari", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px; /* sticky navbar height */
+}
+
+body {
+  margin: 0;
+  background: var(--color-white);
+  color: var(--color-black);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings use Noto Sans Devanagari; everything else inherits the Inter body stack */
+h1, h2, h3, h4, blockquote {
+  font-family: var(--font-heading);
+  font-weight: 500;
+}
+h1 { font-weight: 700; }
+
+/* Page container: 1120px content, 80px side gutter on desktop */
+.container-site {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 80px;
+}
+@media (max-width: 1024px) {
+  .container-site { padding-inline: 32px; }
+}
+@media (max-width: 640px) {
+  .container-site { padding-inline: 20px; }
+}
+
+/* Striped photo placeholder */
+.stripes {
+  background-color: color-mix(in srgb, var(--color-grey) 10%, transparent);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--color-grey) 10%, transparent) 0 14px,
+    color-mix(in srgb, var(--color-grey) 15%, transparent) 14px 28px
+  );
+}
+
+/* Wide tracking for Latin labels only. NEVER apply to Devanagari: it breaks conjuncts. */
+.tracking-label { letter-spacing: 0.14em; text-transform: uppercase; }
+
+.section-pad { padding-block: 88px; }
+@media (max-width: 640px) {
+  .section-pad { padding-block: 64px; }
+}
+
+/* Floating WhatsApp button: gentle pulse ring every few seconds */
+@keyframes wa-pulse {
+  0%, 60% { transform: scale(1); opacity: 0; }
+  65% { opacity: 0.45; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+.wa-pulse { animation: wa-pulse 4s ease-out infinite; opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .wa-pulse { animation: none; }
+}
