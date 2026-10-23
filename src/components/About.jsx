@@ -14,12 +14,14 @@ export default function About() {
         </div>
 
         <div>
-          {a.paragraphs.map((p, i) => (
-            <p key={i} className="mb-[17px] text-[17px] leading-[27px] text-black">
-              {p}
-            </p>
-          ))}
-          <blockquote className="mt-7 border-l-[3px] border-orange pl-[19px] text-[21px] leading-[31px] text-black sm:text-[24px] sm:leading-[35px]">
+          <div className="max-w-prose space-y-4 text-justify">
+            {a.paragraphs.map((p, i) => (
+              <p key={i} className="text-[17px] leading-relaxed text-black">
+                {p}
+              </p>
+            ))}
+          </div>
+          <blockquote className="mt-7 border-l-[3px] border-orange pl-[19px] text-justify text-[21px] leading-[31px] text-black sm:text-[24px] sm:leading-[35px]">
             {a.quote}
           </blockquote>
         </div>

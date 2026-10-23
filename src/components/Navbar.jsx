@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useLang } from '../context/LanguageContext.jsx'
 import { site, waLink } from '../config.js'
 import { external } from './ui.jsx'
-import { InstagramIcon, FacebookIcon, XIcon, MenuIcon } from './Icons.jsx'
+import { InstagramIcon, FacebookIcon, TwitterIcon, MenuIcon } from './Icons.jsx'
 
 export default function Navbar() {
   const { t, toggle } = useLang()
@@ -13,7 +13,7 @@ export default function Navbar() {
   const socials = [
     { href: site.instagram, Icon: InstagramIcon, label: 'Instagram' },
     { href: site.facebook, Icon: FacebookIcon, label: 'Facebook' },
-    { href: site.x, Icon: XIcon, label: 'X' },
+    { href: site.x, Icon: TwitterIcon, label: 'Twitter' },
   ]
 
   const joinHref = waLink(t.nav.joinText)
@@ -43,6 +43,7 @@ export default function Navbar() {
   }, [open])
 
   return (
+    <>
     <header className="sticky top-0 z-50 border-b border-grey/25 bg-white/95 backdrop-blur">
       <nav className="container-site flex h-[72px] items-center justify-between gap-3 sm:gap-6">
         <Link to={sectionTo('top')} className="flex min-w-0 items-center max-lg:flex-1">
@@ -106,32 +107,55 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="max-h-[calc(100dvh-72px)] overflow-y-auto overscroll-contain border-t border-grey/25 bg-white lg:hidden">
-          <ul className="container-site flex flex-col py-3">
-            {t.nav.links.map((l) => (
-              <li key={l.id}>
-                <Link to={sectionTo(l.id)} onClick={close} className="block py-3 text-[17px] font-medium text-black">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <a href={joinHref} onClick={close} className="block py-3 text-[17px] font-medium text-black" {...external}>
-                {t.nav.join}
-              </a>
-            </li>
-            <li className="flex gap-6 py-3 text-black">
-              {socials.map(({ href, Icon, label }) => (
-                <a key={label} href={href} aria-label={label} onClick={close} {...external}>
-                  <Icon size={22} />
-                </a>
-              ))}
-            </li>
-          </ul>
-        </div>
-      )}
     </header>
+
+    {/* Mobile menu: slide-in drawer from the right. Rendered outside <header> because its
+        backdrop-blur would otherwise make `fixed` position relative to the header. */}
+    <div className={`fixed inset-0 z-[60] lg:hidden ${open ? '' : 'pointer-events-none'}`} aria-hidden={!open}>
+      <div
+        onClick={close}
+        className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0'}`}
+      />
+      <aside
+        className={`absolute right-0 top-0 flex h-full w-[82%] max-w-[340px] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out ${
+          open ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        <div className="flex h-[72px] shrink-0 items-center justify-between border-b border-grey/25 px-6">
+          <span className="text-[13px] font-bold uppercase tracking-wider text-orange">Menu</span>
+          <button type="button" onClick={close} aria-label="Close menu" className="flex h-10 w-10 items-center justify-center text-black">
+            <MenuIcon open />
+          </button>
+        </div>
+        <ul className="flex-1 overflow-y-auto overscroll-contain px-6 py-3">
+          {t.nav.links.map((l) => (
+            <li key={l.id} className="border-b border-grey/15">
+              <Link to={sectionTo(l.id)} onClick={close} tabIndex={open ? 0 : -1} className="block py-4 text-[17px] font-medium text-black hover:text-orange">
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="shrink-0 space-y-5 border-t border-grey/25 px-6 py-5">
+          <a
+            href={joinHref}
+            onClick={close}
+            tabIndex={open ? 0 : -1}
+            className="flex h-[48px] items-center justify-center rounded-full bg-orange text-[16px] font-bold text-white"
+            {...external}
+          >
+            {t.nav.join}
+          </a>
+          <div className="flex justify-center gap-7 text-black">
+            {socials.map(({ href, Icon, label }) => (
+              <a key={label} href={href} aria-label={label} onClick={close} tabIndex={open ? 0 : -1} {...external}>
+                <Icon size={22} />
+              </a>
+            ))}
+          </div>
+        </div>
+      </aside>
+    </div>
+    </>
   )
 }

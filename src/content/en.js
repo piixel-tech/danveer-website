@@ -32,14 +32,15 @@ const en = {
     { label: 'Seat', value: 'Panchayat Samiti Member' },
     { label: 'Area', value: 'Bilara, Ward 12' },
     { label: 'Village', value: 'Khariya Mithapur' },
-    { label: 'Polling', value: '[__ November 2026]' },
+    { label: 'Polling', value: 'November 2026' },
   ],
   about: {
     eyebrow: 'About',
     title: 'My roots are in this soil',
     subtitle: 'मेरी जड़ें इसी मिट्टी में हैं',
     paragraphs: [
-      'Ram Ram Sa. I am Danveer Karan Khariya, a son of Khariya Mithapur village in Bilara. My family served Gram Panchayat Khariya Mithapur as Sarpanch for two generations, and my grandfather, the late Thakur Balwant Singh Rathore, was Chairman of the Krishi Upaj Mandi, Bilara.',
+      'Ram Ram Sa. I am Danveer Karan Khariya, a son of Khariya Mithapur village in Bilara.',
+      'My family served Gram Panchayat Khariya Mithapur as Sarpanch for two generations, and my grandfather, the late Thakur Balwant Singh Rathore, was Chairman of the Krishi Upaj Mandi, Bilara.',
       'I spent years leading teams in the pharmaceutical sector and then built businesses of my own in healthcare, construction materials and marketing. That work taught me that a scheme only succeeds when it reaches the last person in line.',
       'Today I am a Primary Member of the Bharatiya Janata Party, and the party has chosen me as its candidate for Bilara Panchayat Samiti, Ward 12. I want to put the experience I gained outside to work for my ward.',
     ],
